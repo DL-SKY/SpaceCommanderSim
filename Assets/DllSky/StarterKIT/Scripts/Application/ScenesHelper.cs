@@ -34,7 +34,7 @@ namespace DllSky.StarterKITv2.Application
 
         private void OnSceneLoadedHandler(Scene scene, LoadSceneMode loadSceneMode)
         {
-            Debug.LogWarning("[ScenesHelper] OnSceneLoadedHandler() " + scene.name);
+            Debug.Log("[ScenesHelper] OnSceneLoadedHandler() " + scene.name);
             OnSceneLoaded?.Invoke(scene.name);
         }
     }

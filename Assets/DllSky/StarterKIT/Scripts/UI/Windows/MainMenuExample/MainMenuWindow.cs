@@ -3,6 +3,7 @@ using DllSky.StarterKITv2.Constants;
 using DllSky.StarterKITv2.Interfaces.Windows;
 using DllSky.StarterKITv2.Services;
 using DllSky.StarterKITv2.UI.Windows.Loading;
+using DllSky.StarterKITv2.UI.Windows.Log;
 using DllSky.StarterKITv2.UI.Windows.SecondExampleWindow;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,6 +49,11 @@ namespace DllSky.StarterKITv2.UI.Windows.MainMenuExample
             _windowsManagerHolder.WindowsController.CreateWindow<SecondWindow>(SecondWindow.prefabPath, Enums.EnumWindowsLayer.Main);
 
             Close();
+        }
+
+        public void OnClickShowLog()
+        {
+            _windowsManagerHolder.WindowsController.CreateWindow<LogWindow>(LogWindow.prefabPath, Enums.EnumWindowsLayer.Dialogs);
         }
 
 

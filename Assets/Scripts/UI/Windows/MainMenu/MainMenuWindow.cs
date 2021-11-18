@@ -2,6 +2,7 @@
 using DllSky.StarterKITv2.Interfaces.Windows;
 using DllSky.StarterKITv2.Services;
 using DllSky.StarterKITv2.UI.Windows;
+using DllSky.StarterKITv2.UI.Windows.Log;
 using SCS.Application;
 
 namespace SCS.UI.Windows.MainMenu
@@ -34,6 +35,11 @@ namespace SCS.UI.Windows.MainMenu
                 //_loadingWindow = _windowsManagerHolder.WindowsController.CreateWindow<SceneLoadingWindow>(SceneLoadingWindow.prefabPath, Enums.EnumWindowsLayer.Loading, ConstantScenes.EXAMPLE_MAIN_MENU);
                 //_loadingWindow.OnSceneLoaded += OnSceneLoadedHandler;
             }
+        }
+
+        public void OnClickShowLogWindow()
+        {
+            _windowsManagerHolder.WindowsController.CreateWindow<LogWindow>(LogWindow.prefabPath, DllSky.StarterKITv2.Enums.EnumWindowsLayer.Dialogs);
         }
 
 

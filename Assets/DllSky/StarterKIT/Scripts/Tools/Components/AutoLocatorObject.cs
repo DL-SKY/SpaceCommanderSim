@@ -11,7 +11,10 @@ namespace DllSky.StarterKITv2.Tools.Components
 
         protected void Awake()
         {
-            DontDestroyOnLoad(gameObject);
+            if (transform.parent == null)
+                DontDestroyOnLoad(gameObject);
+            else
+                Debug.LogWarning($"[AutoLocatorObject] Object \"{name}\" not root GameObject!");
 
             if (_component == null)
                 _component = this;

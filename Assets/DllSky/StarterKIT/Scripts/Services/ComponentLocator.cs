@@ -21,7 +21,7 @@ namespace DllSky.StarterKITv2.Services
 
             OnRegister?.Invoke(type);
 
-            Debug.LogWarning("[ComponentLocator] Register " + type.ToString());
+            Debug.Log($"[ComponentLocator] Register \"{type}\"");
         }
 
         public static void Unregister<T>() where T : Component
@@ -34,7 +34,7 @@ namespace DllSky.StarterKITv2.Services
         {
             _components.Remove(type);
 
-            Debug.LogWarning("[ComponentLocator] Unregister " + type.ToString());
+            Debug.Log($"[ComponentLocator] Unregister \"{type}\"");
         }
 
         public static T Resolve<T>() where T : Component
