@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94f86d4d18fa23408f2c81637249b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isDontDestroy: 0
   _component: {fileID: 0}
 --- !u!1 &576406442
 GameObject:
@@ -404,6 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be061e95928598947a905a5da457b89f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isDontDestroy: 0
   _component: {fileID: 0}
   _logs: []
 --- !u!1 &742797384
@@ -807,6 +809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b13db78b62e35b4cb46081288860f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isDontDestroy: 1
   _component: {fileID: 0}
   _layers:
   - key: 0
@@ -831,6 +834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2ed5b65c81b6684cab8fd7f669c2487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isDontDestroy: 1
   _component: {fileID: 0}
   _delayTime: 0.5
   _windowsController: {fileID: 1752876347}

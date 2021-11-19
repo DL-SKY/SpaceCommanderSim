@@ -5,16 +5,16 @@ namespace DllSky.StarterKITv2.Tools.Components
 {
     public class AutoLocatorObject : MonoBehaviour
     {
+        [SerializeField] protected bool _isDontDestroy = true;
+
         [Tooltip("Если NULL - автоопределение")]
         [SerializeField] protected Component _component;
 
 
         protected void Awake()
         {
-            if (transform.parent == null)
-                DontDestroyOnLoad(gameObject);
-            else
-                Debug.LogWarning($"[AutoLocatorObject] Object \"{name}\" not root GameObject!");
+            if (_isDontDestroy)
+                TryApplyDontDestroy();            
 
             if (_component == null)
                 _component = this;
@@ -33,5 +33,14 @@ namespace DllSky.StarterKITv2.Tools.Components
 
         protected virtual void CustomAwake() { }
         protected virtual void CustomOnDestroy() { }
+
+
+        private void TryApplyDontDestroy()
+        {
+            if (transform.parent == null)
+                DontDestroyOnLoad(gameObject);
+            else
+                Debug.LogWarning($"[AutoLocatorObject] TryApplyDontDestroy() => Object \"{name}\" not root GameObject!");
+        }
     }
 }

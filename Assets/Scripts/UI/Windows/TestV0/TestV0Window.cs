@@ -3,15 +3,14 @@ using DllSky.StarterKITv2.Enums;
 using DllSky.StarterKITv2.Interfaces.Windows;
 using DllSky.StarterKITv2.Services;
 using DllSky.StarterKITv2.UI.Windows;
-using DllSky.StarterKITv2.UI.Windows.Log;
 using SCS.Application;
 using SCS.UI.Windows.Loading;
 
 namespace SCS.UI.Windows.MainMenu
 {
-    public class MainMenuWindow : WindowBase
+    public class TestV0Window : WindowBase
     {
-        public const string prefabPath = @"Prefabs\UI\Windows\MainMenu\MainMenuV0Window";
+        public const string prefabPath = @"Prefabs\UI\Windows\Test\TestV0Window";
 
         private IWindowsManagerUsing _windowsManagerHolder;
         private ScenesHelper _scenesHelper;
@@ -27,7 +26,7 @@ namespace SCS.UI.Windows.MainMenu
 
         public override void Initialize(object data)
         {
-            if (_scenesHelper.CheckCurrentScene(Constants.ConstantScenes.MAIN_MENU_0))
+            if (_scenesHelper.CheckCurrentScene(Constants.ConstantScenes.TEST_0))
             {
                 SetInitialize(true);
             }
@@ -37,22 +36,11 @@ namespace SCS.UI.Windows.MainMenu
                     (
                         SceneLoadingDefaultWindow.prefabPath,
                         EnumWindowsLayer.Loading,
-                        Constants.ConstantScenes.MAIN_MENU_0
+                        Constants.ConstantScenes.TEST_0
                     );
                 _loadingWindow.OnSceneLoaded += OnSceneLoadedHandler;
             }
-        }
-
-        public void OnClickShowLogWindow()
-        {
-            _windowsManagerHolder.WindowsController.CreateWindow<LogWindow>(LogWindow.prefabPath, EnumWindowsLayer.Dialogs);
-        }
-
-        public void OnClickTest0()
-        {
-            _windowsManagerHolder.WindowsController.CreateWindow<TestV0Window>(TestV0Window.prefabPath, EnumWindowsLayer.Main);
-            Close();
-        }
+        }        
 
 
         private void OnSceneLoadedHandler()
@@ -64,6 +52,12 @@ namespace SCS.UI.Windows.MainMenu
             }
 
             SetInitialize(true);
+        }
+
+
+        protected override void CustomOnClickEsc()
+        {
+            _windowsManagerHolder.WindowsController.CreateWindow<MainMenuWindow>(MainMenuWindow.prefabPath, EnumWindowsLayer.Main);
         }
     }
 }

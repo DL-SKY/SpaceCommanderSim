@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3687097463681224949}
   - component: {fileID: 7678050112790502553}
   - component: {fileID: 3983433176029074617}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7608853532657381368}
   - component: {fileID: 2542547159969949345}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ExampleLogItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 8191671818652887458}
   - component: {fileID: 8852886334248608893}
   - component: {fileID: 8658992339095865083}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Indication
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 8804135467599447383}
   - component: {fileID: 1699066847320425527}
   - component: {fileID: 4288877034779671656}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Log
   m_TagString: Untagged
   m_Icon: {fileID: 0}

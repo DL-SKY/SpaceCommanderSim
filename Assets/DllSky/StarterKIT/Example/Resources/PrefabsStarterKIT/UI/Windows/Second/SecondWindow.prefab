@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3746078469606256924}
   - component: {fileID: 1540933707904951365}
   - component: {fileID: 6649348340123531216}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 4154885601252753369}
   - component: {fileID: 4579203592023170319}
   - component: {fileID: 7404569857396560248}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5726501542550600510}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Example
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 6371151011353223846}
   - component: {fileID: 3094424316305553458}
   - component: {fileID: 1988983932503476057}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SecondWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 297219658056066726}
   - component: {fileID: 2409189264480876300}
   - component: {fileID: 6451440229429106676}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 7163291226714305146}
   - component: {fileID: 7599409062473233555}
   - component: {fileID: 5521454125229078281}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9220315090920309421}
   - component: {fileID: 16988982281769530}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,7 +505,7 @@ GameObject:
   - component: {fileID: 719593887633698360}
   - component: {fileID: 6495129567940722984}
   - component: {fileID: 484581957605992824}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ButtonQueue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -635,7 +635,7 @@ GameObject:
   - component: {fileID: 3457794218179330926}
   - component: {fileID: 2420028965764063145}
   - component: {fileID: 675244008730784111}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ButtonDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
