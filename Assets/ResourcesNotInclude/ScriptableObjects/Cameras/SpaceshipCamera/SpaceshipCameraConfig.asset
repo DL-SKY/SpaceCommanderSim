@@ -21,8 +21,8 @@ MonoBehaviour:
   usePitch: 1
   pitchSensitivity: 0.1
   pitchClamp: 1
-  pitchMin: -90
-  pitchMax: 90
+  pitchMin: -75
+  pitchMax: 75
   pitchDefault: -30
   useYaw: 1
   yawSensitivity: 0.1
