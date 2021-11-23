@@ -1,6 +1,9 @@
-﻿using DllSky.StarterKITv2.Tools.Components;
+﻿using DllSky.StarterKITv2.Services;
+using DllSky.StarterKITv2.Tools.Components;
 using Lean.Touch;
+using SCS.GameModes.Space.Managers;
 using SCS.ScriptableObjects.Cameras;
+using SCS.Spaceships;
 using UnityEngine;
 
 namespace SCS.Cameras
@@ -27,6 +30,9 @@ namespace SCS.Cameras
 
         private Transform _cameraTransform;
         private Transform _transform;
+        private Transform _target;
+
+        private SpaceManager _spaceManager;
 
 
         protected override void CustomAwake()
@@ -43,8 +49,20 @@ namespace SCS.Cameras
             ApplyDefaultValues();
         }
 
+        private void Start()
+        {
+            _spaceManager = ComponentLocator.Resolve<SpaceManager>();
+            if (_spaceManager)
+                _spaceManager.OnCreateMineSpaceship += OnCreateMineSpaceshipHandler;
+            else
+                Debug.LogWarning("[SpaceshipCameraController] Start() => Not found SpaceManager");
+        }
+
         private void LateUpdate()
         {
+            if (_target)
+                _transform.position = _target.position;
+
             var fingers = LeanSelectable.GetFingers(_ignoreStartedOverGui, _ignoreIsOverGui);
 
             var pinchRatio = LeanGesture.GetPinchRatio(fingers);
@@ -64,6 +82,18 @@ namespace SCS.Cameras
             SetFOV(_fov + _fovOffset);
         }
 
+        protected override void CustomOnDestroy()
+        {
+            base.CustomOnDestroy();
+            if (_spaceManager)
+                _spaceManager.OnCreateMineSpaceship -= OnCreateMineSpaceshipHandler;
+        }
+
+
+        private void OnCreateMineSpaceshipHandler(Spaceship spaceship)
+        {
+            _target = spaceship.GetTargetUI();
+        }
 
         private void ApplyDefaultValues()
         {

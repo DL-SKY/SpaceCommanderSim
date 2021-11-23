@@ -391,7 +391,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1156409469}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &576406444
 MonoBehaviour:
@@ -408,6 +408,55 @@ MonoBehaviour:
   _isDontDestroy: 0
   _component: {fileID: 0}
   _logs: []
+--- !u!1 &708437992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 708437993}
+  - component: {fileID: 708437994}
+  m_Layer: 0
+  m_Name: GlobalConfigManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &708437993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708437992}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1156409469}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &708437994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708437992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 601a7b15e9232d1419e97f987666ad03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isDontDestroy: 0
+  _component: {fileID: 0}
+  _skillsConfig: {fileID: 11400000, guid: 16200d87c096991469516c9bb2638c2e, type: 2}
+  _spaceshipSystemsConfigsArray:
+  - system: 2
+    config: {fileID: 11400000, guid: cb407477177190f48941af3430f61624, type: 2}
 --- !u!1 &742797384
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,7 +569,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1156409469}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &785561916
 MonoBehaviour:
@@ -688,6 +737,7 @@ Transform:
   m_Children:
   - {fileID: 1916956076}
   - {fileID: 506426976}
+  - {fileID: 708437993}
   - {fileID: 785561915}
   - {fileID: 576406443}
   m_Father: {fileID: 0}

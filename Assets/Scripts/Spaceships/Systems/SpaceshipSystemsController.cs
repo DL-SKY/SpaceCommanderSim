@@ -1,4 +1,6 @@
-﻿using SCS.Datas.Spaceships.Systems;
+﻿using DllSky.StarterKITv2.Services;
+using SCS.Application;
+using SCS.Datas.Spaceships.Systems;
 using SCS.Enums;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,10 +15,14 @@ namespace SCS.Spaceships.Systems
         private bool _isInit;
         private Spaceship _spaceship;
 
+        private GlobalConfigManager _clobalConfigs;
+
 
         private void Awake()
         {
             CreateSystemsDictionary(_systemsArray);
+
+            _clobalConfigs = ComponentLocator.Resolve<GlobalConfigManager>();
         }
 
         private void Update()
@@ -25,7 +31,16 @@ namespace SCS.Spaceships.Systems
                 return;
 
             foreach (var system in _systems)
-                system.Value.DoUpdate(Time.deltaTime);
+                system.Value?.DoUpdate(Time.deltaTime);
+        }
+
+        private void FixedUpdate()
+        {
+            if (!_isInit)
+                return;
+
+            foreach (var system in _systems)
+                system.Value?.DoFixedUpdate(Time.fixedDeltaTime);
         }
 
 
@@ -35,7 +50,15 @@ namespace SCS.Spaceships.Systems
             _isInit = true;
 
             foreach (var system in _systems)
-                system.Value.Initialize(_spaceship);
+                system.Value?.Initialize(_spaceship);
+        }
+
+        public SpaceshipSystem GetSystem(EnumSpaceshipSystems system)
+        {
+            if (_systems.ContainsKey(system))
+                return _systems[system];
+            else
+                return null;
         }
 
 

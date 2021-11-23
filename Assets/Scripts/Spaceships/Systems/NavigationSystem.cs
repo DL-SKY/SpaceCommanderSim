@@ -1,4 +1,5 @@
-﻿using SCS.Spaceships.Systems.Actions;
+﻿using SCS.Enums;
+using SCS.Spaceships.Systems.Actions;
 using SCS.Spaceships.Systems.Actions.Navigation;
 using System.Collections.Generic;
 
@@ -6,10 +7,19 @@ namespace SCS.Spaceships.Systems
 {
     public class NavigationSystem : SpaceshipSystem
     {
+        public override EnumSpaceshipSystems System => EnumSpaceshipSystems.Navigation;
+
+
         public override void DoUpdate(float deltaTime)
         {
             foreach (var action in _actions)
                 action.Value.DoUpdate(deltaTime);
+        }
+
+        public override void DoFixedUpdate(float fixedDeltaTime)
+        {
+            foreach (var action in _actions)
+                action.Value.DoFixedUpdate(fixedDeltaTime);
         }
 
         public override void DoAction(ActionData data)
@@ -23,7 +33,7 @@ namespace SCS.Spaceships.Systems
         {
             _actions = new Dictionary<Enums.EnumSpaceshipSystemActions, Actions.Action>
             {
-                { Enums.EnumSpaceshipSystemActions.MoveTo, new ActionMoveTo(_spaceship) },
+                { Enums.EnumSpaceshipSystemActions.MoveTo, new ActionMoveTo(_spaceship, this) },
             };
         }
     }

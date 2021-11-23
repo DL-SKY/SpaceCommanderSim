@@ -27,18 +27,26 @@
     public enum EnumSpaceshipSystemActions
     {
         //Main,
+
         //Shields,
+
         //Navigation,
         MoveTo = 300,
+
         //Weapons,
+
         //Energy,
+
         //Radar,
+
         //Oxygen,
     }
 
     public enum EnumSpaceshipSystemActionStates
     { 
         NA,
+
+        Waiting,
 
         Started,
         Paused,
