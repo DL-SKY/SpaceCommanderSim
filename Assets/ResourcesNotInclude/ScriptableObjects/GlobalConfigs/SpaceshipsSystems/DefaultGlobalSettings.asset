@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c259752394a2e548a800f441efec718, type: 3}
-  m_Name: NavigationGlobalSettings
+  m_Name: DefaultGlobalSettings
   m_EditorClassIdentifier: 
   executePauseMin: {x: 1, y: 0.5}
   executePauseMax: {x: 4, y: 0.75}

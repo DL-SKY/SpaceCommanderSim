@@ -38,7 +38,33 @@ namespace SCS.Spaceships.Systems
             return Random.Range(min, max);
         }
 
-        
+        public Actions.Action GetAction(EnumSpaceshipSystemActions type)
+        {
+            if (_actions.ContainsKey(type))
+                return _actions[type];
+            else
+                return null;
+        }
+
+        public bool CheckActiveAction(EnumSpaceshipSystemActions type)
+        {
+            var action = GetAction(type);
+            if (action != null)
+                return action.State == EnumSpaceshipSystemActionStates.Started;
+            else
+                return false;
+        }
+
+        public bool CheckWaitingAction(EnumSpaceshipSystemActions type)
+        {
+            var action = GetAction(type);
+            if (action != null)
+                return action.State == EnumSpaceshipSystemActionStates.Waiting;
+            else
+                return false;
+        }
+
+
         public abstract void DoUpdate(float deltaTime);
         public abstract void DoFixedUpdate(float fixedDeltaTime);
         public abstract void DoAction(ActionData data);

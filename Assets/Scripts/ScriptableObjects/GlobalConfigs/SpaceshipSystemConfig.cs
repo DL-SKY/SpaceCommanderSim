@@ -9,4 +9,14 @@ namespace SCS.ScriptableObjects.GlobalConfigs
         public Vector2 executePauseMin;
         public Vector2 executePauseMax;
     }
+
+    [CreateAssetMenu(menuName = "ScriptableObjects/GlobalConfigs/SpaceshipNavigationSystemConfig", fileName = "NavigationSystemConfig")]
+    public class SpaceshipNavigationSystemConfig : SpaceshipSystemConfig
+    {
+        [Header("ActionMoveDefault Settings")]
+        public bool autoStart;
+
+        [Header("ActionSpeedChange Settings")]
+        [Range(0.0f, 1.0f)] public float startSpeedMod;
+    }
 }

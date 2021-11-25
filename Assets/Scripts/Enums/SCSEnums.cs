@@ -32,6 +32,8 @@
 
         //Navigation,
         MoveTo = 300,
+        MoveDefault,
+        SpeedChange,
 
         //Weapons,
 
@@ -62,8 +64,7 @@
         //Navigation,
         Speed = 300,
         Maneuver,
-        Accelerate,
-        Braking,
+        AccelerateTime,
 
         //Weapons,
 

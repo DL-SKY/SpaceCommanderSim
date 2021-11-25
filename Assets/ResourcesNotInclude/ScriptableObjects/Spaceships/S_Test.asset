@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: S_Test
   m_EditorClassIdentifier: 
   size: 20
+  minDistanceRadius: 2

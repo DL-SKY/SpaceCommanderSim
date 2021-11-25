@@ -456,7 +456,7 @@ MonoBehaviour:
   _skillsConfig: {fileID: 11400000, guid: 16200d87c096991469516c9bb2638c2e, type: 2}
   _spaceshipSystemsConfigsArray:
   - system: 2
-    config: {fileID: 11400000, guid: cb407477177190f48941af3430f61624, type: 2}
+    config: {fileID: 11400000, guid: d475ec735b9cc874aadebaceb1aa7a0c, type: 2}
 --- !u!1 &742797384
 GameObject:
   m_ObjectHideFlags: 0

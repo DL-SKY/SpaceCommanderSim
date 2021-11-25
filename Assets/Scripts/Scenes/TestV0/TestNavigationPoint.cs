@@ -15,6 +15,7 @@ namespace SCS.Scenes.TestV0
                 systemSkillLevel = 1,
                 executeCommandPauseCoeff = 1.0f,
                 target = transform,
+                targetMinDistanceRadius = 1.5f,
             };
 
             ComponentLocator.Resolve<SpaceManager>()?.

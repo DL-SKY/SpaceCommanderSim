@@ -10,8 +10,8 @@ namespace SCS.Spaceships.Parameters
 {
     public class SpaceshipParametersContainer
     {
-        public Dictionary<EnumSpaceshipParameters, float> parametersBase = new Dictionary<EnumSpaceshipParameters, float>();
-        public Dictionary<EnumSpaceshipParameters, float> parametersMods = new Dictionary<EnumSpaceshipParameters, float>();    //TODO: переделать float на другой тип, наверно нужна будет коллекция
+        private Dictionary<EnumSpaceshipParameters, float> _parametersBase = new Dictionary<EnumSpaceshipParameters, float>();
+        private Dictionary<EnumSpaceshipParameters, Dictionary<string, float>> _parametersMods = new Dictionary<EnumSpaceshipParameters, Dictionary<string, float>>();
 
         private SkillsConfig _globalSkillsConfig;
 
@@ -25,14 +25,38 @@ namespace SCS.Spaceships.Parameters
             FillDictionaryParametersBase(data);
         }
 
-        public float GetParameter(EnumSpaceshipParameters parameter)
+        public float GetCalculatedParameter(EnumSpaceshipParameters parameter)
         {
-            //TODO: добавить учет модификаторов (контроль текущей скорости тоже через модификаторы)
-
-            if (parametersBase.ContainsKey(parameter))
-                return parametersBase[parameter];
+            if (_parametersBase.ContainsKey(parameter))
+                return _parametersBase[parameter] * GetCalculateMods(parameter);
             else
                 return 0.0f;
+        }
+
+        public float GetMod(EnumSpaceshipParameters parameter, string mod)
+        {
+            if (_parametersMods.ContainsKey(parameter))
+            {
+                if (_parametersMods[parameter].ContainsKey(mod))
+                    return _parametersMods[parameter][mod];
+                else
+                    return 1.0f;
+            }
+            else
+            {
+                return 1.0f;
+            }
+        }
+
+        public void SetMod(EnumSpaceshipParameters parameter, string mod, float value)
+        {
+            if (!_parametersMods.ContainsKey(parameter))
+                _parametersMods.Add(parameter, new Dictionary<string, float>());
+
+            if (!_parametersMods[parameter].ContainsKey(mod))
+                _parametersMods[parameter].Add(mod, value);
+            else
+                _parametersMods[parameter][mod] = value;
         }
 
 
@@ -44,8 +68,24 @@ namespace SCS.Spaceships.Parameters
                 var maxSystemSkillLevel = 1;
                 var t = Mathf.InverseLerp(_globalSkillsConfig.levelMin, _globalSkillsConfig.levelMax, maxSystemSkillLevel);
                 var currentSkillLevel = Mathf.Lerp(parameter.range.x, parameter.range.y, t);
-                parametersBase.Add(parameter.parameter, currentSkillLevel);
+                _parametersBase.Add(parameter.parameter, currentSkillLevel);
             }
+        }
+
+        private void FillDictionaryParametersMods(SpaceshipData data)
+        { 
+            //TODO
+            //reserved
+        }
+
+        private float GetCalculateMods(EnumSpaceshipParameters parameter)
+        {
+            var mods = 1.0f;
+            if (_parametersMods.ContainsKey(parameter))
+                foreach (var mod in _parametersMods[parameter])
+                    mods *= mod.Value;
+
+            return mods;
         }
     }
 }

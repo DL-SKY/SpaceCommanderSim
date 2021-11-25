@@ -1,4 +1,5 @@
 ﻿using SCS.Enums;
+using SCS.ScriptableObjects.GlobalConfigs;
 using SCS.Spaceships.Systems.Actions;
 using SCS.Spaceships.Systems.Actions.Navigation;
 using System.Collections.Generic;
@@ -8,14 +9,6 @@ namespace SCS.Spaceships.Systems
     public class NavigationSystem : SpaceshipSystem
     {
         public override EnumSpaceshipSystems System => EnumSpaceshipSystems.Navigation;
-
-        /*
-         Параметры
-        - маневреность/поворот
-        - разгон
-        - торможение
-        - скорость
-         */
 
 
         public override void DoUpdate(float deltaTime)
@@ -39,10 +32,27 @@ namespace SCS.Spaceships.Systems
 
         protected override void InitializeActionsDictionary()
         {
+            SpaceshipNavigationSystemConfig navigationSystemSpecialConfig = null;
+            try
+            {
+                navigationSystemSpecialConfig = (SpaceshipNavigationSystemConfig)_globalSystemConfig;
+            }
+            catch (System.Exception e)
+            {
+                UnityEngine.Debug.LogError(e.Message + " => " + e.StackTrace);
+                throw;
+            }
+            var moveDefaultAutoStart = navigationSystemSpecialConfig?.autoStart ?? true;
+            var changeSpeedStartSpeedMod = navigationSystemSpecialConfig?.startSpeedMod ?? 0.0f;
+
             _actions = new Dictionary<Enums.EnumSpaceshipSystemActions, Actions.Action>
             {
                 { Enums.EnumSpaceshipSystemActions.MoveTo, new ActionMoveTo(_spaceship, this) },
+                { Enums.EnumSpaceshipSystemActions.MoveDefault, new ActionMoveDefault(_spaceship, this, autoStart: moveDefaultAutoStart) },
+                { Enums.EnumSpaceshipSystemActions.SpeedChange, new ActionSpeedChange(_spaceship, this, startSpeedMod: changeSpeedStartSpeedMod) },
             };
+
+
         }
     }
 }

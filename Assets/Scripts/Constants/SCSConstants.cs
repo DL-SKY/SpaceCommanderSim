@@ -6,4 +6,9 @@
 
         public const string TEST_0 = "TestV0Scene";
     }
+
+    public static class ConstantsSpaceshipParametersMods
+    {
+        public const string CLAMPED_SPEED = "CLAMPED_SPEED";
+    }
 }
