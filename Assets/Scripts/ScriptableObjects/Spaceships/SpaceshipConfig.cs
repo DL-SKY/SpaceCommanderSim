@@ -7,5 +7,6 @@ namespace SCS.ScriptableObjects.Spaceships
     public class SpaceshipConfig : ScriptableObject
     {
         public EnumSpaceObjectSize size;
+        public float minDistanceRadius;
     }
 }

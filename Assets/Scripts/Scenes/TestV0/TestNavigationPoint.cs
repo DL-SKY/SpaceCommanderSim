@@ -18,7 +18,7 @@ namespace SCS.Scenes.TestV0
             };
 
             ComponentLocator.Resolve<SpaceManager>()?.
-                MineSpaceship?.GetSystemsController()?.
+                MineSpaceship?.Systems?.
                 GetSystem(Enums.EnumSpaceshipSystems.Navigation)?.
                 DoAction(data);
         }

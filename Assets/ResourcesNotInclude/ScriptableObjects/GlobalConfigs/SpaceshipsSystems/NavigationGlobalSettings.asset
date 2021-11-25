@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: NavigationGlobalSettings
   m_EditorClassIdentifier: 
   executePauseMin: {x: 1, y: 0.5}
-  executePauseMax: {x: 5, y: 0.75}
+  executePauseMax: {x: 4, y: 0.75}

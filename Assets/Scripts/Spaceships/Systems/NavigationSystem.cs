@@ -9,6 +9,14 @@ namespace SCS.Spaceships.Systems
     {
         public override EnumSpaceshipSystems System => EnumSpaceshipSystems.Navigation;
 
+        /*
+         Параметры
+        - маневреность/поворот
+        - разгон
+        - торможение
+        - скорость
+         */
+
 
         public override void DoUpdate(float deltaTime)
         {

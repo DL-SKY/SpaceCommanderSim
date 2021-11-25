@@ -1,14 +1,22 @@
 ﻿using SCS.Datas.Spaceships;
 using SCS.GameModes.Space.Managers;
+using SCS.Interfaces.SpaceObjects;
+using SCS.Interfaces.Spaceships.Parameters;
+using SCS.Interfaces.Spaceships.Systems;
+using SCS.Interfaces.Transforms;
 using SCS.ScriptableObjects.Spaceships;
+using SCS.Spaceships.Parameters;
 using SCS.Spaceships.Systems;
 using UnityEngine;
 
 namespace SCS.Spaceships
 {
-    public class Spaceship : MonoBehaviour
+    public class Spaceship : MonoBehaviour, ITransformCache, IParametersContainerInclude, ISystemsControllerInclude, IMinDistanceRadius
     {
         public Transform TransformSelf { get; private set; }
+        public SpaceshipParametersContainer Parameters { get; private set; }
+        public SpaceshipSystemsController Systems => _systems;
+        public float MinDistanceRadius => _config?.minDistanceRadius ?? 0.0f;
         public bool IsMine => _data?.isMine ?? false;
 
 
@@ -28,6 +36,7 @@ namespace SCS.Spaceships
         private void Awake()
         {
             TransformSelf = transform;
+            Parameters = new SpaceshipParametersContainer();
         }
 
 
@@ -39,6 +48,7 @@ namespace SCS.Spaceships
             if (spaceManager)
                 spaceManager.AddSpaceship(this);
 
+            Parameters.Initialize(_data);
             _systems.Initialize(this);
         }
 
@@ -52,14 +62,9 @@ namespace SCS.Spaceships
             return _targetUI;
         }
 
-        public Rigidbody GetRegidbody()
+        public Rigidbody GetRigidbody()
         {
             return _rigidbody;
-        }
-
-        public SpaceshipSystemsController GetSystemsController()
-        {
-            return _systems;
         }
     }
 }

@@ -52,4 +52,25 @@
         Paused,
         Completed
     }
+
+    public enum EnumSpaceshipParameters
+    {
+        //Main,
+
+        //Shields,
+
+        //Navigation,
+        Speed = 300,
+        Maneuver,
+        Accelerate,
+        Braking,
+
+        //Weapons,
+
+        //Energy,
+
+        //Radar,
+
+        //Oxygen,
+    }
 }

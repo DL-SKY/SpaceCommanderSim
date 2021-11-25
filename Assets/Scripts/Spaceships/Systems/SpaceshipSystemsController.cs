@@ -13,7 +13,7 @@ namespace SCS.Spaceships.Systems
         private Dictionary<EnumSpaceshipSystems, SpaceshipSystem> _systems;
 
         private bool _isInit;
-        private Spaceship _spaceship;
+        private Spaceship _spaceship;        
 
         private GlobalConfigManager _clobalConfigs;
 

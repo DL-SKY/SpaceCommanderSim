@@ -40,17 +40,8 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
                 if (_data.target == null)
                     SetState(EnumSpaceshipSystemActionStates.Completed);
 
-                //Вычисляем точку для поворота
-                var targetRot = _data.target.position - _spaceship.TransformSelf.position;
-
-                if (targetRot != Vector3.zero && Vector3.Angle(_spaceship.TransformSelf.forward, targetRot) > 0.25)
-                {
-                    //TODO - маневренность
-                    _spaceship.GetRegidbody().rotation = 
-                        Quaternion.RotateTowards(_spaceship.TransformSelf.rotation, 
-                        Quaternion.FromToRotation(Vector3.forward, targetRot), 
-                        180.0f * fixedDeltaTime);
-                }
+                UpdateRotation(fixedDeltaTime);
+                UpdatePosition(fixedDeltaTime);
             }
         }
 
@@ -62,6 +53,37 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
             Debug.LogError($"Execute() {data.Type.ToString()} / pause {_waitTimer}");
 
             SetState(EnumSpaceshipSystemActionStates.Waiting);
+        }
+
+
+        private void UpdateRotation(float fixedDeltaTime)
+        {
+            var targetRot = _data.target.position - _spaceship.TransformSelf.position;
+
+            if (targetRot != Vector3.zero && Vector3.Angle(_spaceship.TransformSelf.forward, targetRot) > 0.25)
+            {
+                //TODO - маневренность
+                _spaceship.GetRigidbody().rotation =
+                    Quaternion.RotateTowards(_spaceship.TransformSelf.rotation,
+                    Quaternion.FromToRotation(Vector3.forward, targetRot),
+                    _spaceship.Parameters.GetParameter(EnumSpaceshipParameters.Maneuver) * fixedDeltaTime);
+            }
+        }
+
+        private void UpdatePosition(float fixedDeltaTime)
+        {
+            //TODO - разгон/торможение/скорость
+            var speed = _spaceship.Parameters.GetParameter(EnumSpaceshipParameters.Maneuver);
+
+            //Проверка на дистанцию. В случае необходимости останавливаем корабль
+            //var distance = Vector3.Distance(transform.position, point.position);
+            //if (distance > brakingDistance && distance > brakingDistanceSpeedType)
+            //    SetSpeedNormalize(GetMaxSpeedForCurrentSpeedType());
+            //else if (meta.GetSpeedResultNormalize() > 0.0f)
+            //    SetSpeedNormalize(0.0f);
+
+            var spaceshipRB = _spaceship.GetRigidbody();
+            spaceshipRB.MovePosition(spaceshipRB.position + _spaceship.TransformSelf.forward * speed * fixedDeltaTime);
         }
     }
 }
