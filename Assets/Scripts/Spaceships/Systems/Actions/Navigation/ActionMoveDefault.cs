@@ -12,10 +12,9 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
     {
         public override EnumSpaceshipSystemActions Type => EnumSpaceshipSystemActions.MoveDefault;
 
-        public ActionMoveDefault(Spaceship spaceship, SpaceshipSystem system, bool autoStart) : base(spaceship, system)
+        public ActionMoveDefault(Spaceship spaceship, SpaceshipSystem system) : base(spaceship, system)
         {
-            if (autoStart)
-                Execute(new ActionMoveDefaultData());            
+            //reserved
         }
 
 
@@ -35,7 +34,7 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
 
         public override void Execute(ActionData data)
         {
-            Debug.LogError($"Execute() {data.Type.ToString()}");
+            //Debug.LogError($"Execute() {data.Type.ToString()}");
 
             SetState(EnumSpaceshipSystemActionStates.Started);
         }

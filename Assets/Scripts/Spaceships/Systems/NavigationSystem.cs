@@ -32,24 +32,14 @@ namespace SCS.Spaceships.Systems
 
         protected override void InitializeActionsDictionary()
         {
-            SpaceshipNavigationSystemConfig navigationSystemSpecialConfig = null;
-            try
-            {
-                navigationSystemSpecialConfig = (SpaceshipNavigationSystemConfig)_globalSystemConfig;
-            }
-            catch (System.Exception e)
-            {
-                UnityEngine.Debug.LogError(e.Message + " => " + e.StackTrace);
-                throw;
-            }
-            var moveDefaultAutoStart = navigationSystemSpecialConfig?.moveDafeultAutoStart ?? true;
+            SpaceshipNavigationSystemConfig navigationSystemSpecialConfig = TryCastingSpaceshipSystemConnfig<SpaceshipNavigationSystemConfig>(_globalSystemConfig);
             var speedChangeStartMod = navigationSystemSpecialConfig?.speedChangeStartMod ?? 0.0f;
             var speecClampStartMod = navigationSystemSpecialConfig?.speedClampStartMod ?? 0.0f;
 
             _actions = new Dictionary<Enums.EnumSpaceshipSystemActions, Actions.Action>
             {
                 { Enums.EnumSpaceshipSystemActions.MoveTo, new ActionMoveTo(_spaceship, this) },
-                { Enums.EnumSpaceshipSystemActions.MoveDefault, new ActionMoveDefault(_spaceship, this, autoStart: moveDefaultAutoStart) },
+                { Enums.EnumSpaceshipSystemActions.MoveDefault, new ActionMoveDefault(_spaceship, this) },
                 { Enums.EnumSpaceshipSystemActions.SpeedChange, new ActionSpeedChange(_spaceship, this, startSpeedMod: speedChangeStartMod) },
                 { Enums.EnumSpaceshipSystemActions.SpeedClamp, new ActionSpeedClamp(_spaceship, this, speecClampStartMod) },
             };

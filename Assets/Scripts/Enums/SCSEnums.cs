@@ -62,8 +62,12 @@
     public enum EnumSpaceshipParameters
     {
         //Main,
+        HullPointsMax = 100,
+        HullPointsCur,
 
         //Shields,
+        ShieldsPointsMax = 200,
+        ShieldsPointsCur,
 
         //Navigation,
         Speed = 300,

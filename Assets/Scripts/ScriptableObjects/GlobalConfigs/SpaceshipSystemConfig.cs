@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SCS.Enums;
+using UnityEngine;
 
 namespace SCS.ScriptableObjects.GlobalConfigs
 {
@@ -8,14 +9,14 @@ namespace SCS.ScriptableObjects.GlobalConfigs
         [Header("Execute Command Pause")]
         public Vector2 executePauseMin;
         public Vector2 executePauseMax;
+
+        [Header("Autostart")]
+        public EnumSpaceshipSystemActions[] autoStartActions;
     }
 
     [CreateAssetMenu(menuName = "ScriptableObjects/GlobalConfigs/SpaceshipNavigationSystemConfig", fileName = "NavigationSystemConfig")]
     public class SpaceshipNavigationSystemConfig : SpaceshipSystemConfig
     {
-        [Header("ActionMoveDefault Settings")]
-        public bool moveDafeultAutoStart;
-
         [Header("ActionSpeedChange Settings")]
         [Range(0.0f, 1.0f)] public float speedChangeStartMod;
 

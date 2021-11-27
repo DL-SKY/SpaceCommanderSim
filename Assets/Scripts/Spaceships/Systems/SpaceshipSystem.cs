@@ -33,8 +33,8 @@ namespace SCS.Spaceships.Systems
 
             _spaceship = spaceship;
             InitializeActionsDictionary();
-
             Subscribe();
+            AutoStartActions();
         }
 
         public float GenerateExecuteCommandPause(int skillLevel, float coeff = 1.0f)
@@ -54,22 +54,22 @@ namespace SCS.Spaceships.Systems
                 return null;
         }
 
-        public bool CheckActiveAction(EnumSpaceshipSystemActions type)
+        public bool CheckActionState(EnumSpaceshipSystemActions actionType, EnumSpaceshipSystemActionStates state)
         {
-            var action = GetAction(type);
+            var action = GetAction(actionType);
             if (action != null)
-                return action.State == EnumSpaceshipSystemActionStates.Started;
+                return action.State == state;
             else
                 return false;
         }
 
-        public bool CheckWaitingAction(EnumSpaceshipSystemActions type)
+
+        private void AutoStartActions()
         {
-            var action = GetAction(type);
-            if (action != null)
-                return action.State == EnumSpaceshipSystemActionStates.Waiting;
-            else
-                return false;
+            if (_globalSystemConfig.autoStartActions != null)
+                foreach (var actionType in _globalSystemConfig.autoStartActions)
+                    if (_actions.ContainsKey(actionType))
+                        _actions[actionType].Execute(null);
         }
 
 
@@ -83,6 +83,19 @@ namespace SCS.Spaceships.Systems
         {
             foreach (var action in _actions)
                 action.Value.OnStateChange -= OnActionStateChangeHandler;
+        }
+
+        protected T TryCastingSpaceshipSystemConnfig<T>(SpaceshipSystemConfig baseConfig) where T : SpaceshipSystemConfig
+        {
+            try
+            {
+                return (T)_globalSystemConfig;
+            }
+            catch (System.Exception e)
+            {
+                UnityEngine.Debug.LogError(e.Message + " => " + e.StackTrace);
+                throw;
+            }
         }
 
 

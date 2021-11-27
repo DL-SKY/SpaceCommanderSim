@@ -39,7 +39,21 @@ namespace SCS.Spaceships.Systems.Actions
             var prevState = State;
             State = state;
             OnStateChange?.Invoke(Type, prevState, State);
-        }        
+        }
+
+        protected void UpdateWaitTimer(float deltaTime)
+        {
+            _waitTimer -= deltaTime;
+            if (_waitTimer <= 0.0f)
+                SetState(EnumSpaceshipSystemActionStates.Started);
+        }
+
+        protected void UpdateCooldownTimer(float deltaTime)
+        {
+            _cooldownTimer -= deltaTime;
+            if (_cooldownTimer <= 0.0f)
+                SetState(EnumSpaceshipSystemActionStates.CooldownComleted);
+        }
 
 
         public abstract void DoUpdate(float deltaTime);

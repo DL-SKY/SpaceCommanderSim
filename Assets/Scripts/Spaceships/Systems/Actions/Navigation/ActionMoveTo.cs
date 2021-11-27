@@ -31,11 +31,7 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
         public override void DoUpdate(float deltaTime)
         {
             if (State == EnumSpaceshipSystemActionStates.Waiting)
-            {
-                _waitTimer -= deltaTime;
-                if (_waitTimer <= 0.0f)
-                    SetState(EnumSpaceshipSystemActionStates.Started);
-            }
+                UpdateWaitTimer(deltaTime);
         }
 
         public override void DoFixedUpdate(float fixedDeltaTime)
@@ -60,11 +56,11 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
             _calcMinDistanceRadius = selfMinDistanceRadius + targetMinDistanceRadius;
             _sqrCalcMinDistanceRadius = _calcMinDistanceRadius * _calcMinDistanceRadius;
 
-            Debug.LogError($"Execute() {data.Type.ToString()} / pause {_waitTimer} / minDist {_calcMinDistanceRadius} - {_sqrCalcMinDistanceRadius}");
+            //Debug.LogError($"Execute() {data.Type.ToString()} / pause {_waitTimer} / minDist {_calcMinDistanceRadius} - {_sqrCalcMinDistanceRadius}");
 
             SetState(EnumSpaceshipSystemActionStates.Waiting);
 
-            if (!_system.CheckActiveAction(EnumSpaceshipSystemActions.MoveDefault))
+            if (!_system.CheckActionState(EnumSpaceshipSystemActions.MoveDefault, EnumSpaceshipSystemActionStates.Started))
                 StartActionMoveDefault();
         }
 
@@ -104,7 +100,8 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
 
         private void DoActionSpeedChange(float newSpeedMod)
         {
-            if (_system.CheckWaitingAction(EnumSpaceshipSystemActions.SpeedChange) || _system.CheckActiveAction(EnumSpaceshipSystemActions.SpeedChange))
+            if (_system.CheckActionState(EnumSpaceshipSystemActions.SpeedChange, EnumSpaceshipSystemActionStates.Waiting) 
+                || _system.CheckActionState(EnumSpaceshipSystemActions.SpeedChange, EnumSpaceshipSystemActionStates.Started))
             {
                 var actionSpeedChange = (ActionSpeedChange)_system.GetAction(EnumSpaceshipSystemActions.SpeedChange);
                 actionSpeedChange.TryUpdateTargetNormalizeSpeedMod(newSpeedMod, true);
