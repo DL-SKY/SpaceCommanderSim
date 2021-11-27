@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp:SCS.ScriptableObjects.GlobalConfigs:SpaceshipNavigationSystemConfig
   executePauseMin: {x: 1, y: 0.5}
   executePauseMax: {x: 4, y: 0.75}
-  autoStart: 1
-  startSpeedMod: 0
+  moveDafeultAutoStart: 1
+  speedChangeStartMod: 0
+  speedClampStartMod: 1

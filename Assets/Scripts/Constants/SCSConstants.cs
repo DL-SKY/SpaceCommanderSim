@@ -9,6 +9,20 @@
 
     public static class ConstantsSpaceshipParametersMods
     {
+        //Main,
+
+        //Shields,
+
+        //Navigation,
         public const string CLAMPED_SPEED = "CLAMPED_SPEED";
+        public const string CURRENT_SPEED = "CURRENT_SPEED";
+
+        //Weapons,
+
+        //Energy,
+
+        //Radar,
+
+        //Oxygen,        
     }
 }

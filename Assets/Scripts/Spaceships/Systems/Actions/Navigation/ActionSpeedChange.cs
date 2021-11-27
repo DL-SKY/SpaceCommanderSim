@@ -14,13 +14,14 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
 
     public class ActionSpeedChange : Actions.Action
     {
+        public override EnumSpaceshipSystemActions Type => EnumSpaceshipSystemActions.SpeedChange;
+
         private ActionSpeedChangeData _data;
-        private float _waitTimer;
 
 
         public ActionSpeedChange(Spaceship spaceship, SpaceshipSystem system, float startSpeedMod) : base(spaceship, system)
         {
-            _spaceship.Parameters.SetMod(EnumSpaceshipParameters.Speed, ConstantsSpaceshipParametersMods.CLAMPED_SPEED, startSpeedMod);
+            _spaceship.Parameters.SetMod(EnumSpaceshipParameters.Speed, ConstantsSpaceshipParametersMods.CURRENT_SPEED, startSpeedMod);
         }
 
 
@@ -34,17 +35,17 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
                         SetState(EnumSpaceshipSystemActionStates.Started);
                     break;
                 case EnumSpaceshipSystemActionStates.Started:
-                    var clampedSpeedMod = _spaceship.Parameters.GetMod(EnumSpaceshipParameters.Speed, ConstantsSpaceshipParametersMods.CLAMPED_SPEED);
+                    var currentSpeedMod = _spaceship.Parameters.GetMod(EnumSpaceshipParameters.Speed, ConstantsSpaceshipParametersMods.CURRENT_SPEED);
                     var accelerate = _spaceship.Parameters.GetCalculatedParameter(EnumSpaceshipParameters.AccelerateTime);
-                    if (Mathf.Abs(clampedSpeedMod - _data.targetNormalizeSpeedMod) <= float.Epsilon)
+                    if (Mathf.Abs(currentSpeedMod - _data.targetNormalizeSpeedMod) <= float.Epsilon)
                     {
                         SetState(EnumSpaceshipSystemActionStates.Completed);
                         return;
                     }
                     else
                     {
-                        var newModValue = Mathf.MoveTowards(clampedSpeedMod, _data.targetNormalizeSpeedMod, 1 / accelerate * deltaTime);
-                        _spaceship.Parameters.SetMod(EnumSpaceshipParameters.Speed, ConstantsSpaceshipParametersMods.CLAMPED_SPEED, newModValue);
+                        var newModValue = Mathf.MoveTowards(currentSpeedMod, _data.targetNormalizeSpeedMod, 1 / accelerate * deltaTime);
+                        _spaceship.Parameters.SetMod(EnumSpaceshipParameters.Speed, ConstantsSpaceshipParametersMods.CURRENT_SPEED, newModValue);
                     }
                     break;
             }

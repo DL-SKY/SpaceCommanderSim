@@ -10,6 +10,8 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
 
     public class ActionMoveDefault : Actions.Action
     {
+        public override EnumSpaceshipSystemActions Type => EnumSpaceshipSystemActions.MoveDefault;
+
         public ActionMoveDefault(Spaceship spaceship, SpaceshipSystem system, bool autoStart) : base(spaceship, system)
         {
             if (autoStart)
@@ -27,6 +29,7 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
             if (State == EnumSpaceshipSystemActionStates.Started)
             {
                 UpdatePosition(fixedDeltaTime);
+                UpdateRotation(fixedDeltaTime);
             }
         }
 
@@ -43,6 +46,20 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
             var speed = _spaceship.Parameters.GetCalculatedParameter(EnumSpaceshipParameters.Speed);
             var spaceshipRB = _spaceship.GetRigidbody();
             spaceshipRB.MovePosition(spaceshipRB.position + _spaceship.TransformSelf.forward * speed * fixedDeltaTime);
+        }
+
+        private void UpdateRotation(float fixedDeltaTime)
+        {
+            var spaceship = _spaceship.GetRigidbody();
+            var eulerRot = spaceship.rotation.eulerAngles;
+            var parameterZ = _spaceship.Parameters.GetCalculatedParameter(EnumSpaceshipParameters.RotationZ);
+            var maneuver = _spaceship.Parameters.GetCalculatedParameter(EnumSpaceshipParameters.Maneuver);
+            var defaultZ = Quaternion.AngleAxis(-eulerRot.z + parameterZ, Vector3.forward);            
+
+            spaceship.rotation = Quaternion.RotateTowards(
+                spaceship.rotation,
+                spaceship.rotation * defaultZ,
+                maneuver * fixedDeltaTime);
         }
     }
 }

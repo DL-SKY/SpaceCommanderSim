@@ -1,5 +1,4 @@
 ﻿using SCS.Enums;
-using System;
 using UnityEngine;
 
 namespace SCS.Spaceships.Systems.Actions.Navigation
@@ -15,9 +14,11 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
 
     public class ActionMoveTo : Actions.Action
     {
-        private ActionMoveToData _data;
-        private float _waitTimer;
+        public override EnumSpaceshipSystemActions Type => EnumSpaceshipSystemActions.MoveTo;
 
+        private ActionMoveToData _data;
+
+        private float _calcMinDistanceRadius;
         private float _sqrCalcMinDistanceRadius;
 
 
@@ -56,9 +57,10 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
 
             var selfMinDistanceRadius = _spaceship.MinDistanceRadius;
             var targetMinDistanceRadius = _data.targetMinDistanceRadius;
-            _sqrCalcMinDistanceRadius = (selfMinDistanceRadius + targetMinDistanceRadius) * (selfMinDistanceRadius + targetMinDistanceRadius);
+            _calcMinDistanceRadius = selfMinDistanceRadius + targetMinDistanceRadius;
+            _sqrCalcMinDistanceRadius = _calcMinDistanceRadius * _calcMinDistanceRadius;
 
-            Debug.LogError($"Execute() {data.Type.ToString()} / pause {_waitTimer}");
+            Debug.LogError($"Execute() {data.Type.ToString()} / pause {_waitTimer} / minDist {_calcMinDistanceRadius} - {_sqrCalcMinDistanceRadius}");
 
             SetState(EnumSpaceshipSystemActionStates.Waiting);
 
@@ -76,41 +78,28 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
         {
             var targetRot = _data.target.position - _spaceship.TransformSelf.position;
 
-            if (targetRot != Vector3.zero && Vector3.Angle(_spaceship.TransformSelf.forward, targetRot) > 0.25)
+            if (targetRot != Vector3.zero && Vector3.Angle(_spaceship.TransformSelf.forward, targetRot) > 0.25f)
             {
-                _spaceship.GetRigidbody().rotation = Quaternion.RotateTowards(
-                    _spaceship.TransformSelf.rotation,
-                    Quaternion.FromToRotation(Vector3.forward, targetRot),
-                    _spaceship.Parameters.GetCalculatedParameter(EnumSpaceshipParameters.Maneuver) * fixedDeltaTime);
+                var maneuver = _spaceship.Parameters.GetCalculatedParameter(EnumSpaceshipParameters.Maneuver);
+                Quaternion targetQuaternion = Quaternion.RotateTowards(_spaceship.TransformSelf.rotation,
+                                                        Quaternion.LookRotation(targetRot),
+                                                        maneuver * fixedDeltaTime);
+                _spaceship.GetRigidbody().rotation = targetQuaternion;
             }
-        }
-
-        [Obsolete]
-        private void UpdatePosition(float fixedDeltaTime)
-        {
-            //TODO - разгон/торможение/скорость
-            var speed = _spaceship.Parameters.GetCalculatedParameter(EnumSpaceshipParameters.Speed);
-
-            //Проверка на дистанцию. В случае необходимости останавливаем корабль
-            //var distance = Vector3.Distance(transform.position, point.position);
-            //if (distance > brakingDistance && distance > brakingDistanceSpeedType)
-            //    SetSpeedNormalize(GetMaxSpeedForCurrentSpeedType());
-            //else if (meta.GetSpeedResultNormalize() > 0.0f)
-            //    SetSpeedNormalize(0.0f);
-
-            var spaceshipRB = _spaceship.GetRigidbody();
-            spaceshipRB.MovePosition(spaceshipRB.position + _spaceship.TransformSelf.forward * speed * fixedDeltaTime);
         }
 
         private void UpdateSpeed()
         {            
             var sqrDistance = (_data.target.position - _spaceship.TransformSelf.position).sqrMagnitude;
-            
-            //TODO
-            //...
+            var speed = _spaceship.Parameters.GetCalculatedParameter(EnumSpaceshipParameters.Speed);
 
-            //var newSpeedMod = 1.0f;
-            //DoActionSpeedChange(newSpeedMod);
+            var newSpeedMod = 0.0f;
+            if (sqrDistance > _sqrCalcMinDistanceRadius && sqrDistance > GetSqrDistanceBraking(_sqrCalcMinDistanceRadius, _calcMinDistanceRadius, speed))
+                newSpeedMod = 1.0f;
+            else if (sqrDistance <= _sqrCalcMinDistanceRadius)
+                SetState(EnumSpaceshipSystemActionStates.Completed);
+
+            DoActionSpeedChange(newSpeedMod);
         }
 
         private void DoActionSpeedChange(float newSpeedMod)
@@ -124,6 +113,15 @@ namespace SCS.Spaceships.Systems.Actions.Navigation
             {
                 _system.DoAction(new ActionSpeedChangeData { targetNormalizeSpeedMod = newSpeedMod, immediately = true, });
             }
+        }
+
+        private float GetSqrDistanceBraking(float sqrCalcMinDistance, float calcMinDistance, float speed)
+        {
+            var accelerate = _spaceship.Parameters.GetCalculatedParameter(EnumSpaceshipParameters.AccelerateTime);
+            var brakingTime = speed / accelerate;
+            var brakingDistance = brakingTime * speed;
+
+            return sqrCalcMinDistance + (2 * calcMinDistance * brakingDistance) + (brakingDistance * brakingDistance);  //квадрат суммы
         }
     }
 }

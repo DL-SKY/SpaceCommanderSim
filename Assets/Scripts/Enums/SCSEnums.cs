@@ -34,6 +34,7 @@
         MoveTo = 300,
         MoveDefault,
         SpeedChange,
+        SpeedClamp,
 
         //Weapons,
 
@@ -52,7 +53,10 @@
 
         Started,
         Paused,
-        Completed
+        Completed,
+
+        CooldownStarted,
+        CooldownComleted,
     }
 
     public enum EnumSpaceshipParameters
@@ -65,6 +69,8 @@
         Speed = 300,
         Maneuver,
         AccelerateTime,
+
+        RotationZ = 350,
 
         //Weapons,
 

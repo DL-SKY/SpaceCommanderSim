@@ -19,6 +19,12 @@ namespace SCS.Spaceships.Systems
         protected Dictionary<Enums.EnumSpaceshipSystemActions, Actions.Action> _actions;
 
 
+        protected void OnDestroy()
+        {
+            Unsubscribe();
+        }
+
+
         public void Initialize(Spaceship spaceship)
         {
             var configManager = ComponentLocator.Resolve<GlobalConfigManager>();
@@ -27,6 +33,8 @@ namespace SCS.Spaceships.Systems
 
             _spaceship = spaceship;
             InitializeActionsDictionary();
+
+            Subscribe();
         }
 
         public float GenerateExecuteCommandPause(int skillLevel, float coeff = 1.0f)
@@ -65,10 +73,24 @@ namespace SCS.Spaceships.Systems
         }
 
 
+        protected void Subscribe()
+        {
+            foreach (var action in _actions)
+                action.Value.OnStateChange += OnActionStateChangeHandler;
+        }
+
+        protected void Unsubscribe()
+        {
+            foreach (var action in _actions)
+                action.Value.OnStateChange -= OnActionStateChangeHandler;
+        }
+
+
         public abstract void DoUpdate(float deltaTime);
         public abstract void DoFixedUpdate(float fixedDeltaTime);
         public abstract void DoAction(ActionData data);
 
         protected abstract void InitializeActionsDictionary();
+        protected abstract void OnActionStateChangeHandler(EnumSpaceshipSystemActions type, EnumSpaceshipSystemActionStates prevState, EnumSpaceshipSystemActionStates state);
     }
 }

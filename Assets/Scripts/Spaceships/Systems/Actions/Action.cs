@@ -14,10 +14,17 @@ namespace SCS.Spaceships.Systems.Actions
 
     public abstract class Action : IUpdateSystem, IFixedUpdateSystem
     {
+        public event System.Action<EnumSpaceshipSystemActions, EnumSpaceshipSystemActionStates, EnumSpaceshipSystemActionStates> OnStateChange;
+
+        public abstract EnumSpaceshipSystemActions Type { get; }
+
         public EnumSpaceshipSystemActionStates State { get; protected set; }
 
         protected Spaceship _spaceship;
         protected SpaceshipSystem _system;
+
+        protected float _waitTimer;
+        protected float _cooldownTimer;
 
 
         public Action(Spaceship spaceship, SpaceshipSystem system)
@@ -29,7 +36,9 @@ namespace SCS.Spaceships.Systems.Actions
 
         protected void SetState(EnumSpaceshipSystemActionStates state)
         {
+            var prevState = State;
             State = state;
+            OnStateChange?.Invoke(Type, prevState, State);
         }        
 
 

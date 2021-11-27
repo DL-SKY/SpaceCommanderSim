@@ -14,9 +14,12 @@ namespace SCS.ScriptableObjects.GlobalConfigs
     public class SpaceshipNavigationSystemConfig : SpaceshipSystemConfig
     {
         [Header("ActionMoveDefault Settings")]
-        public bool autoStart;
+        public bool moveDafeultAutoStart;
 
         [Header("ActionSpeedChange Settings")]
-        [Range(0.0f, 1.0f)] public float startSpeedMod;
+        [Range(0.0f, 1.0f)] public float speedChangeStartMod;
+
+        [Header("ActionSpeedClamp Settings")]
+        [Range(0.0f, 1.0f)] public float speedClampStartMod;
     }
 }
