@@ -455,6 +455,10 @@ MonoBehaviour:
   _component: {fileID: 0}
   _skillsConfig: {fileID: 11400000, guid: 16200d87c096991469516c9bb2638c2e, type: 2}
   _spaceshipSystemsConfigsArray:
+  - system: 0
+    config: {fileID: 11400000, guid: cb407477177190f48941af3430f61624, type: 2}
+  - system: 1
+    config: {fileID: 11400000, guid: cb407477177190f48941af3430f61624, type: 2}
   - system: 2
     config: {fileID: 11400000, guid: dcda63a3d155d954aa8a6a97168bd90f, type: 2}
 --- !u!1 &742797384

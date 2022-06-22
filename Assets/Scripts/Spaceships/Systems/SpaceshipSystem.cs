@@ -37,6 +37,24 @@ namespace SCS.Spaceships.Systems
             AutoStartActions();
         }
 
+        public virtual void DoUpdate(float deltaTime)
+        {
+            foreach (var action in _actions)
+                action.Value.DoUpdate(deltaTime);
+        }
+
+        public virtual void DoFixedUpdate(float fixedDeltaTime)
+        {
+            foreach (var action in _actions)
+                action.Value.DoFixedUpdate(fixedDeltaTime);
+        }
+
+        public virtual void DoAction(ActionData data)
+        {
+            if (_actions.ContainsKey(data.Type))
+                _actions[data.Type].Execute(data);
+        }
+
         public float GenerateExecuteCommandPause(int skillLevel, float coeff = 1.0f)
         {
             var t = Mathf.InverseLerp(_globalSkillsConfig.levelMin, _globalSkillsConfig.levelMax, skillLevel);
@@ -98,10 +116,6 @@ namespace SCS.Spaceships.Systems
             }
         }
 
-
-        public abstract void DoUpdate(float deltaTime);
-        public abstract void DoFixedUpdate(float fixedDeltaTime);
-        public abstract void DoAction(ActionData data);
 
         protected abstract void InitializeActionsDictionary();
         protected abstract void OnActionStateChangeHandler(EnumSpaceshipSystemActions type, EnumSpaceshipSystemActionStates prevState, EnumSpaceshipSystemActionStates state);

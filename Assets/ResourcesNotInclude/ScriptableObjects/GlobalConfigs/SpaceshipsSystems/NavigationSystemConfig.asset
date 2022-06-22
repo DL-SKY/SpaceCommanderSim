@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 244991a91c45e424e9dc362bdc31a1da, type: 3}
   m_Name: NavigationSystemConfig
-  m_EditorClassIdentifier: Assembly-CSharp:SCS.ScriptableObjects.GlobalConfigs:SpaceshipNavigationSystemConfig
+  m_EditorClassIdentifier: 
   executePauseMin: {x: 1, y: 0.5}
   executePauseMax: {x: 4, y: 0.75}
   autoStartActions: 2d010000

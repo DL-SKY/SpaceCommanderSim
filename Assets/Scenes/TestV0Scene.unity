@@ -203,9 +203,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _systemsArray:
   - type: 0
-    link: {fileID: 0}
+    link: {fileID: 515889629}
   - type: 1
-    link: {fileID: 0}
+    link: {fileID: 1601749700}
   - type: 2
     link: {fileID: 1565610860}
   - type: 3
@@ -389,6 +389,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 515889628}
+  - component: {fileID: 515889629}
   m_Layer: 0
   m_Name: Main
   m_TagString: Untagged
@@ -410,6 +411,18 @@ Transform:
   m_Father: {fileID: 427012049}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &515889629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515889627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19cf340bcf059d43b235e783d7f87e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &548886293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1155,6 +1168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1601749699}
+  - component: {fileID: 1601749700}
   m_Layer: 0
   m_Name: Shields
   m_TagString: Untagged
@@ -1176,6 +1190,18 @@ Transform:
   m_Father: {fileID: 427012049}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1601749700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601749698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88bde95ab904c7d4b8aeacd49c144387, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1628347212
 GameObject:
   m_ObjectHideFlags: 0
